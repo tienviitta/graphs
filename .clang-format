@@ -1,0 +1,12 @@
+---
+BasedOnStyle: LLVM
+ColumnLimit: '90'
+IndentWidth: '4'
+Language: Cpp
+TabWidth: '4'
+UseTab: Never
+# Force pointers to the type for C++.
+DerivePointerAlignment: false
+PointerAlignment: Left
+
+...

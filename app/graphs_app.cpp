@@ -1,7 +1,44 @@
 #include "graphs/graphs.hpp"
+#include <fmt/color.h>
+#include <fmt/core.h>
 #include <iostream>
+#include <string>
+#include <vector>
 
-int main(){
-  int result = graphs::add_one(1);
-  std::cout << "1 + 1 = " << result << std::endl;
+int main() {
+    // Test graph I
+    std::unordered_map<std::string, std::vector<std::string>> grapha = {
+        {"a", {"b", "c"}}, {"b", {"d"}}, {"c", {"e"}},
+        {"d", {"f"}},      {"e", {}},    {"f", {}}};
+
+    // Depth first
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "depthFirstPrint:\n");
+    graphs::depthFirstPrint(grapha, "a");
+    // Depth first recursive
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "depthFirstRecPrint:\n");
+    graphs::depthFirstRecPrint(grapha, "a");
+    // Breath first
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "breathFirstPrint:\n");
+    graphs::breathFirstPrint(grapha, "a");
+
+    // Test graph II
+    std::unordered_map<std::string, std::vector<std::string>> graphb = {
+        {"f", {"g", "i"}}, {"g", {"h"}}, {"h", {}},
+        {"i", {"g", "k"}}, {"j", {"i"}}, {"k", {}}};
+    // TODO: These could be tuples?!
+    std::vector<std::vector<std::string>> edges = {
+        {"i", "j"}, {"k", "i"}, {"m", "k"}, {"k", "l"}, {"o", "n"}};
+
+    // Has path
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "hasPath:\n");
+    bool found = graphs::hasPath(graphb, "f", "j");
+    fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  found: {}\n", found);
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "hasPathRec:\n");
+    found = graphs::hasPathRec(graphb, "f", "k");
+    fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  found: {}\n", found);
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "undirectedPath:\n");
+    found = graphs::undirectedPath(edges, "i", "l");
+    fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  found: {}\n", found);
+    found = graphs::undirectedPath(edges, "l", "n");
+    fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  found: {}\n", found);
 }
