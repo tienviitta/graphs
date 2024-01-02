@@ -34,4 +34,8 @@ int connectedComponentsCount(std::unordered_map<int, std::vector<int>>& graph);
 bool traverseGraph(std::unordered_map<int, std::vector<int>>& graph, int node,
                    std::set<int>& visited);
 
+int largestComponentsCount(std::unordered_map<int, std::vector<int>>& graph);
+int traverseSize(std::unordered_map<int, std::vector<int>>& graph, int curr,
+                 std::set<int>& visited);
+
 } // namespace graphs

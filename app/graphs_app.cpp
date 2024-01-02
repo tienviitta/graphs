@@ -51,4 +51,8 @@ int main() {
                "connectedComponentsCount:\n");
     int count = graphs::connectedComponentsCount(graphc);
     fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  count: {}\n", count);
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold,
+               "largestComponentsCount:\n");
+    count = graphs::largestComponentsCount(graphc);
+    fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  count: {}\n", count);
 }

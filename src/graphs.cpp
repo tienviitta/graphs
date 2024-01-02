@@ -149,7 +149,7 @@ int connectedComponentsCount(std::unordered_map<int, std::vector<int>>& graph) {
         if (traverseGraph(graph, node.first, visited)) {
             count++;
         }
-        fmt::print("  node: {}\n", node);
+        // fmt::print("  node: {}\n", node);
     }
     return count;
 }
@@ -166,6 +166,35 @@ bool traverseGraph(std::unordered_map<int, std::vector<int>>& graph, int curr,
         traverseGraph(graph, neighbor, visited);
     }
     return true;
+}
+
+int largestComponentsCount(std::unordered_map<int, std::vector<int>>& graph) {
+    int largest = 0;
+    std::set<int> visited;
+    for (std::pair<int, std::vector<int>> node : graph) {
+        int size = traverseSize(graph, node.first, visited);
+        if (size > largest) {
+            largest = size;
+        }
+        // fmt::print("  node: {}\n", node);
+    }
+    return largest;
+}
+
+int traverseSize(std::unordered_map<int, std::vector<int>>& graph, int curr,
+                 std::set<int>& visited) {
+    // Check if node visited already
+    if (visited.contains(curr)) {
+        return 0;
+    }
+    // Add node to visited
+    visited.emplace(curr);
+    // Find size
+    int size = 1;
+    for (auto neighbor : graph[curr]) {
+        size += traverseSize(graph, neighbor, visited);
+    }
+    return size;
 }
 
 } // namespace graphs
