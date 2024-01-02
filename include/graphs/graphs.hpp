@@ -30,4 +30,8 @@ void buildGraph(std::vector<std::vector<std::string>>& edges,
 bool hasUndirectedPath(std::unordered_map<std::string, std::vector<std::string>>& graph,
                        std::string src, std::string dst, std::set<std::string>& visited);
 
+int connectedComponentsCount(std::unordered_map<int, std::vector<int>>& graph);
+bool traverseGraph(std::unordered_map<int, std::vector<int>>& graph, int node,
+                   std::set<int>& visited);
+
 } // namespace graphs

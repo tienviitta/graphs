@@ -3,6 +3,7 @@
 #include <fmt/core.h>
 #include <iostream>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 int main() {
@@ -41,4 +42,13 @@ int main() {
     fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  found: {}\n", found);
     found = graphs::undirectedPath(edges, "l", "n");
     fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  found: {}\n", found);
+
+    // Component count
+    std::unordered_map<int, std::vector<int>> graphc = {
+        {0, {8, 1, 5}}, {1, {0}},    {5, {0, 8}}, {8, {0, 5}},
+        {2, {3, 4}},    {3, {2, 4}}, {4, {3, 2}}};
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold,
+               "connectedComponentsCount:\n");
+    int count = graphs::connectedComponentsCount(graphc);
+    fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  count: {}\n", count);
 }

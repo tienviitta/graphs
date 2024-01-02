@@ -142,4 +142,30 @@ bool hasUndirectedPath(std::unordered_map<std::string, std::vector<std::string>>
     return false;
 }
 
+int connectedComponentsCount(std::unordered_map<int, std::vector<int>>& graph) {
+    int count = 0;
+    std::set<int> visited;
+    for (std::pair<int, std::vector<int>> node : graph) {
+        if (traverseGraph(graph, node.first, visited)) {
+            count++;
+        }
+        fmt::print("  node: {}\n", node);
+    }
+    return count;
+}
+
+bool traverseGraph(std::unordered_map<int, std::vector<int>>& graph, int curr,
+                   std::set<int>& visited) {
+    // Check if node visited already
+    if (visited.contains(curr)) {
+        return false;
+    }
+    // Add node to visited
+    visited.emplace(curr);
+    for (auto neighbor : graph[curr]) {
+        traverseGraph(graph, neighbor, visited);
+    }
+    return true;
+}
+
 } // namespace graphs
