@@ -38,4 +38,7 @@ int largestComponentsCount(std::unordered_map<int, std::vector<int>>& graph);
 int traverseSize(std::unordered_map<int, std::vector<int>>& graph, int curr,
                  std::set<int>& visited);
 
+int shortestPath(std::vector<std::vector<std::string>>& edges, std::string src,
+                 std::string dst);
+
 } // namespace graphs

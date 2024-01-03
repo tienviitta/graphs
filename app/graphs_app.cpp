@@ -27,7 +27,7 @@ int main() {
         {"f", {"g", "i"}}, {"g", {"h"}}, {"h", {}},
         {"i", {"g", "k"}}, {"j", {"i"}}, {"k", {}}};
     // TODO: These could be tuples?!
-    std::vector<std::vector<std::string>> edges = {
+    std::vector<std::vector<std::string>> edgesa = {
         {"i", "j"}, {"k", "i"}, {"m", "k"}, {"k", "l"}, {"o", "n"}};
 
     // Has path
@@ -38,9 +38,9 @@ int main() {
     found = graphs::hasPathRec(graphb, "f", "k");
     fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  found: {}\n", found);
     fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "undirectedPath:\n");
-    found = graphs::undirectedPath(edges, "i", "l");
+    found = graphs::undirectedPath(edgesa, "i", "l");
     fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  found: {}\n", found);
-    found = graphs::undirectedPath(edges, "l", "n");
+    found = graphs::undirectedPath(edgesa, "l", "n");
     fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  found: {}\n", found);
 
     // Component count
@@ -55,4 +55,11 @@ int main() {
                "largestComponentsCount:\n");
     count = graphs::largestComponentsCount(graphc);
     fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  count: {}\n", count);
+
+    // Shortest path
+    std::vector<std::vector<std::string>> edgesb = {
+        {"w", "x"}, {"x", "y"}, {"z", "y"}, {"z", "v"}, {"w", "v"}};
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "shortestPath:\n");
+    int size = graphs::shortestPath(edgesb, "w", "z");
+    fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  size: {}\n", size);
 }

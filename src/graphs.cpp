@@ -5,6 +5,7 @@
 #include <fmt/ranges.h>
 #include <set>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -195,6 +196,34 @@ int traverseSize(std::unordered_map<int, std::vector<int>>& graph, int curr,
         size += traverseSize(graph, neighbor, visited);
     }
     return size;
+}
+
+int shortestPath(std::vector<std::vector<std::string>>& edges, std::string src,
+                 std::string dst) {
+    std::unordered_map<std::string, std::vector<std::string>> graph;
+    std::set<std::string> visited{src};
+    buildGraph(edges, graph);
+    // Queue
+    std::deque<std::tuple<std::string, int>> queue;
+    // Insert source with distance
+    queue.push_back(std::make_tuple(src, 0));
+    // Breath first traverse
+    while (!queue.empty()) {
+        auto [node, distance] = queue.front();
+        queue.pop_front();
+        // Check if dst found
+        if (node == dst) {
+            return distance;
+        }
+        // Loop neighbors
+        for (auto neighbor : graph[node]) {
+            if (!visited.contains(neighbor)) {
+                visited.emplace(neighbor);
+                queue.push_back(std::make_tuple(neighbor, distance + 1));
+            }
+        }
+    }
+    return 0;
 }
 
 } // namespace graphs
