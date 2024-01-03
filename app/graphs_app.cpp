@@ -62,4 +62,22 @@ int main() {
     fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "shortestPath:\n");
     int size = graphs::shortestPath(edgesb, "w", "z");
     fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  size: {}\n", size);
+
+    // Island count
+    // clang-format off
+    std::vector<std::vector<std::string>> grid {
+      {"W", "L", "W", "W", "W"},
+      {"W", "L", "W", "W", "W"},
+      {"W", "W", "W", "L", "W"},
+      {"W", "W", "L", "L", "W"},
+      {"L", "W", "W", "L", "L"},
+      {"L", "L", "W", "W", "W"}
+    };
+    // clang-format on
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "islandCount:\n");
+    count = graphs::islandCount(grid);
+    fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  count: {}\n", count);
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "minimumIsland:\n");
+    size = graphs::minimumIsland(grid);
+    fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  size: {}\n", size);
 }

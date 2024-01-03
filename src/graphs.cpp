@@ -1,4 +1,5 @@
 #include "graphs/graphs.hpp"
+#include <climits>
 #include <deque>
 #include <fmt/color.h>
 #include <fmt/core.h>
@@ -224,6 +225,99 @@ int shortestPath(std::vector<std::vector<std::string>>& edges, std::string src,
         }
     }
     return 0;
+}
+
+int islandCount(std::vector<std::vector<std::string>>& grid) {
+    fmt::print("  grid: {}\n", grid);
+    int nRows = grid.size();
+    int nCols = grid[0].size();
+    fmt::print("  nRows: {}, nCols: {}\n", nRows, nCols);
+    std::set<std::string> visited;
+    int count = 0;
+    for (int row = 0; row < nRows; row++) {
+        for (int col = 0; col < nCols; col++) {
+            if (exploreGrid(grid, row, col, visited)) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+bool exploreGrid(std::vector<std::vector<std::string>>& grid, int row, int col,
+                 std::set<std::string>& visited) {
+    // Note! Check bounds as a base case!
+    bool rowInBounds = (0 <= row) && (row < grid.size());
+    bool colInBounds = (0 <= col) && (col < grid[0].size());
+    if (!rowInBounds || !colInBounds) {
+        return false;
+    }
+    // Check for water ("W" vs "L")
+    if (grid[row][col] == "W") {
+        return false;
+    }
+    // Make a visited key
+    // fmt::print("  row: {}, col: {}\n", row, col);
+    std::string key = fmt::format("{},{}", row, col);
+    // fmt::print("  key: {}\n", key);
+    if (visited.contains(key)) {
+        return false;
+    }
+    visited.emplace(key);
+    // Depth first tracerse
+    exploreGrid(grid, row - 1, col, visited);
+    exploreGrid(grid, row + 1, col, visited);
+    exploreGrid(grid, row, col - 1, visited);
+    exploreGrid(grid, row, col + 1, visited);
+    return true;
+}
+
+int minimumIsland(std::vector<std::vector<std::string>>& grid) {
+    fmt::print("  grid: {}\n", grid);
+    int nRows = grid.size();
+    int nCols = grid[0].size();
+    fmt::print("  nRows: {}, nCols: {}\n", nRows, nCols);
+    int minSize = INT_MAX;
+    int size = 0;
+    std::set<std::string> visited;
+    for (int row = 0; row < nRows; row++) {
+        for (int col = 0; col < nCols; col++) {
+            size = exploreSize(grid, row, col, visited);
+            if (size > 0 && size < minSize) {
+                minSize = size;
+            }
+        }
+    }
+    return minSize;
+}
+
+int exploreSize(std::vector<std::vector<std::string>>& grid, int row, int col,
+                std::set<std::string>& visited) {
+    // Note! Check bounds as a base case!
+    bool rowInBounds = (0 <= row) && (row < grid.size());
+    bool colInBounds = (0 <= col) && (col < grid[0].size());
+    if (!rowInBounds || !colInBounds) {
+        return 0;
+    }
+    // Check for water ("W" vs "L")
+    if (grid[row][col] == "W") {
+        return 0;
+    }
+    // Make a visited key
+    // fmt::print("  row: {}, col: {}\n", row, col);
+    std::string key = fmt::format("{},{}", row, col);
+    // fmt::print("  key: {}\n", key);
+    if (visited.contains(key)) {
+        return 0;
+    }
+    visited.emplace(key);
+    // Depth first tracerse
+    int size = 1; // Note! Current size!
+    size += exploreGrid(grid, row - 1, col, visited);
+    size += exploreGrid(grid, row + 1, col, visited);
+    size += exploreGrid(grid, row, col - 1, visited);
+    size += exploreGrid(grid, row, col + 1, visited);
+    return size;
 }
 
 } // namespace graphs

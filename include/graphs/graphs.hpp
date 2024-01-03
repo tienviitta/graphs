@@ -41,4 +41,12 @@ int traverseSize(std::unordered_map<int, std::vector<int>>& graph, int curr,
 int shortestPath(std::vector<std::vector<std::string>>& edges, std::string src,
                  std::string dst);
 
+int islandCount(std::vector<std::vector<std::string>>& grid);
+bool exploreGrid(std::vector<std::vector<std::string>>& grid, int row, int col,
+                 std::set<std::string>& visited);
+
+int minimumIsland(std::vector<std::vector<std::string>>& grid);
+int exploreSize(std::vector<std::vector<std::string>>& grid, int row, int col,
+                std::set<std::string>& visited);
+
 } // namespace graphs
