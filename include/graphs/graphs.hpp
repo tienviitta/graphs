@@ -8,6 +8,8 @@ namespace graphs {
 
 int add_one(int x);
 
+// Graphs
+
 void depthFirstPrint(std::unordered_map<std::string, std::vector<std::string>>& graph,
                      std::string source);
 
@@ -48,5 +50,18 @@ bool exploreGrid(std::vector<std::vector<std::string>>& grid, int row, int col,
 int minimumIsland(std::vector<std::vector<std::string>>& grid);
 int exploreSize(std::vector<std::vector<std::string>>& grid, int row, int col,
                 std::set<std::string>& visited);
+
+// Linked list
+
+class Node {
+  public:
+    std::string val;
+    Node* next;
+    Node(std::string init) : val(init), next(nullptr) {}
+    // ~Node();
+};
+
+void printLinkedList(Node* head);
+void printRecLinkedList(Node* head);
 
 } // namespace graphs

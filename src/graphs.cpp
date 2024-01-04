@@ -320,4 +320,22 @@ int exploreSize(std::vector<std::vector<std::string>>& grid, int row, int col,
     return size;
 }
 
+void printLinkedList(Node* head) {
+    Node* curr = head;
+    while (curr != nullptr) {
+        fmt::print("{} -> ", curr->val);
+        curr = curr->next;
+    }
+    fmt::print("null;\n");
+}
+
+void printRecLinkedList(Node* head) {
+    if (head == nullptr) {
+        fmt::print("null;\n");
+        return;
+    }
+    fmt::print("{} -> ", head->val);
+    printRecLinkedList(head->next);
+}
+
 } // namespace graphs

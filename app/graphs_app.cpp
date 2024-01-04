@@ -80,4 +80,18 @@ int main() {
     fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "minimumIsland:\n");
     size = graphs::minimumIsland(grid);
     fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  size: {}\n", size);
+
+    // Linked list
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "printLinkedList:\n");
+    graphs::Node a("A");
+    graphs::Node b("B");
+    graphs::Node c("C");
+    graphs::Node d("D");
+    a.next = &b;
+    b.next = &c;
+    c.next = &d;
+    fmt::print("  ");
+    graphs::printLinkedList(&a);
+    fmt::print("  ");
+    graphs::printRecLinkedList(&a);
 }
