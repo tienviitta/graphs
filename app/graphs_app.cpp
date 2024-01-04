@@ -1,6 +1,7 @@
 #include "graphs/graphs.hpp"
 #include <fmt/color.h>
 #include <fmt/core.h>
+#include <fmt/ranges.h>
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -94,4 +95,37 @@ int main() {
     graphs::printLinkedList(&a);
     fmt::print("  ");
     graphs::printRecLinkedList(&a);
+
+    // Binary tree
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "depthFirstBT:\n");
+    graphs::TreeNode aa("A");
+    graphs::TreeNode bb("B");
+    graphs::TreeNode cc("C");
+    graphs::TreeNode dd("D");
+    graphs::TreeNode ee("E");
+    graphs::TreeNode ff("F");
+    aa.left = &bb;
+    aa.right = &cc;
+    bb.left = &dd;
+    bb.right = &ee;
+    cc.right = &ff;
+    std::vector<std::string> values;
+    graphs::depthFirstBT(&aa, values);
+    fmt::print("  values: {}\n", values);
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "breathFirstBT:\n");
+    std::vector<std::string> valuesb;
+    graphs::breathFirstBT(&aa, valuesb);
+    fmt::print("  values: {}\n", valuesb);
+    fmt::print("  include X: {}\n", graphs::includesBT(&aa, "X"));
+    fmt::print("  include C: {}\n", graphs::includesBT(&aa, "C"));
+    fmt::print("  include X: {}\n", graphs::includesRecBT(&aa, "X"));
+    fmt::print("  include C: {}\n", graphs::includesRecBT(&aa, "C"));
+
+    // Dynamic programming
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "fib:\n");
+    std::vector<int> valuesc;
+    for (int n = 0; n < 17; n++) {
+        valuesc.push_back(graphs::fib(n));
+    }
+    fmt::print("  fib: {}\n", valuesc);
 }

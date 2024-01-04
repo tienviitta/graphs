@@ -3,6 +3,7 @@
 #include <set>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 namespace graphs {
 
@@ -51,6 +52,28 @@ int minimumIsland(std::vector<std::vector<std::string>>& grid);
 int exploreSize(std::vector<std::vector<std::string>>& grid, int row, int col,
                 std::set<std::string>& visited);
 
+// TVQueue
+
+template <typename T> class TVQueue {
+  private:
+    std::vector<T> elements;
+
+  public:
+    void push(const T& value) { elements.push_back(value); }
+    void pop() {
+        if (!empty()) {
+            elements.erase(elements.begin());
+        }
+    }
+    bool empty() const { return elements.empty(); }
+    const T& front() const {
+        if (!empty()) {
+            return elements.front();
+        }
+        throw std::out_of_range("Queue is empty");
+    }
+};
+
 // Linked list
 
 class Node {
@@ -63,5 +86,25 @@ class Node {
 
 void printLinkedList(Node* head);
 void printRecLinkedList(Node* head);
+
+// Binary tree
+
+class TreeNode {
+  public:
+    std::string val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(std::string init) : val(init), left(nullptr), right(nullptr){};
+    // ~TreeNode();
+};
+
+void depthFirstBT(TreeNode* root, std::vector<std::string>& values);
+void breathFirstBT(TreeNode* root, std::vector<std::string>& values);
+bool includesBT(TreeNode* root, std::string value);
+bool includesRecBT(TreeNode* root, std::string value);
+
+// Dynamic
+int fib(int n);
+int fibRec(int n, std::unordered_map<int, int>& cache);
 
 } // namespace graphs

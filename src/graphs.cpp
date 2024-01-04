@@ -338,4 +338,108 @@ void printRecLinkedList(Node* head) {
     printRecLinkedList(head->next);
 }
 
+void depthFirstBT(TreeNode* root, std::vector<std::string>& values) {
+    // Stack
+    std::vector<TreeNode*> stack;
+    // Insert root
+    stack.push_back(root);
+    // Depth first
+    while (!stack.empty()) {
+        TreeNode* curr = stack.back();
+        stack.pop_back();
+        values.push_back(curr->val);
+        if (curr->right != nullptr) {
+            stack.push_back(curr->right);
+        }
+        if (curr->left != nullptr) {
+            stack.push_back(curr->left);
+        }
+    }
+}
+
+void breathFirstBT(TreeNode* root, std::vector<std::string>& values) {
+    // Queue (Note! Not possible with vector!)
+    // std::deque<TreeNode*> queue;
+    TVQueue<TreeNode*> queue;
+    // Insert root
+    // queue.push_back(root);
+    queue.push(root);
+    // Depth first
+    while (!queue.empty()) {
+        TreeNode* curr = queue.front();
+        // queue.pop_front();
+        queue.pop();
+        values.push_back(curr->val);
+        if (curr->left != nullptr) {
+            // queue.push_back(curr->left);
+            queue.push(curr->left);
+        }
+        if (curr->right != nullptr) {
+            // queue.push_back(curr->right);
+            queue.push(curr->right);
+        }
+    }
+}
+
+bool includesBT(TreeNode* root, std::string value) {
+    // Queue (Note! Not possible with vector!)
+    TVQueue<TreeNode*> queue;
+    // Insert root
+    queue.push(root);
+    // Depth first
+    while (!queue.empty()) {
+        TreeNode* curr = queue.front();
+        queue.pop();
+        if (curr->val == value) {
+            return true;
+        }
+        if (curr->left != nullptr) {
+            queue.push(curr->left);
+        }
+        if (curr->right != nullptr) {
+            queue.push(curr->right);
+        }
+    }
+    return false;
+}
+
+bool includesRecBT(TreeNode* root, std::string value) {
+    if (root == nullptr) {
+        return false;
+    }
+    if (root->val == value) {
+        return true;
+    }
+    return (includesRecBT(root->left, value) || includesRecBT(root->right, value));
+}
+
+// Note! Brute-force slow one!
+// int fib(int n) {
+//     if (n == 0) {
+//         return 0;
+//     }
+//     if (n == 1) {
+//         return 1;
+//     }
+//     return fib(n - 1) + fib(n - 2);
+// }
+
+int fib(int n) {
+    std::unordered_map<int, int> memo;
+    return fibRec(n, memo);
+}
+
+int fibRec(int n, std::unordered_map<int, int>& cache) {
+    if (cache.count(n) > 0) {
+        return cache[n];
+    }
+
+    if (n < 2) {
+        return n;
+    }
+
+    cache[n] = fibRec(n - 1, cache) + fibRec(n - 2, cache);
+    return cache[n];
+}
+
 } // namespace graphs
