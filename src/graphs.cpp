@@ -442,4 +442,38 @@ int fibRec(int n, std::unordered_map<int, int>& cache) {
     return cache[n];
 }
 
+int minChange(int amount, std::vector<int> coins, std::unordered_map<int, int>& memo) {
+    // Memoization
+    if (memo.count(amount) > 0) {
+        return memo[amount];
+    }
+    // Base cases
+    if (amount == 0) {
+        return 0;
+    }
+    if (amount < 0) {
+        return -1;
+    }
+    // Use -1 for not possible cases
+    int min = -1;
+    for (int coin : coins) {
+        int remainder = amount - coin;
+        int remainderQty = minChange(remainder, coins, memo);
+        if (remainderQty != -1) {
+            int totalQty = remainderQty + 1;
+            if (min == -1 || totalQty < min) {
+                min = totalQty;
+            }
+        }
+    }
+    // Memoization
+    memo[amount] = min;
+    return min;
+}
+
+int minChange(int amount, std::vector<int> coins) {
+    std::unordered_map<int, int> memo;
+    return minChange(amount, coins, memo);
+}
+
 } // namespace graphs

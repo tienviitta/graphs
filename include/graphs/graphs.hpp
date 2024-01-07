@@ -104,7 +104,10 @@ bool includesBT(TreeNode* root, std::string value);
 bool includesRecBT(TreeNode* root, std::string value);
 
 // Dynamic
+
 int fib(int n);
 int fibRec(int n, std::unordered_map<int, int>& cache);
+int minChange(int amount, std::vector<int> coins);
+int minChange(int amount, std::vector<int> coins, std::unordered_map<int, int>& memo);
 
 } // namespace graphs

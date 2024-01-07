@@ -128,4 +128,8 @@ int main() {
         valuesc.push_back(graphs::fib(n));
     }
     fmt::print("  fib: {}\n", valuesc);
+    fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "minChange:\n");
+    std::vector<int> coins{1, 9, 5, 14, 30};
+    count = graphs::minChange(13, coins);
+    fmt::print(fg(fmt::color::yellow) | fmt::emphasis::bold, "  count: {}\n", count);
 }
